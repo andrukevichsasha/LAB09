@@ -70,7 +70,6 @@ namespace LAB09
             double total = 0;
             foreach (Product p in products)
             {
-                // Так как метод GetDiscount есть только у наследников, приводим к интерфейсу
                 if (p is IDiscountable discount)
                 {
                     total += p.GetCost() * (1 - discount.GetDiscountable());
@@ -88,7 +87,7 @@ namespace LAB09
             double total = 0;
             int vegCount = 0;
 
-            foreach (var p in products)
+            foreach (Product p in products)
             {
                 if (p.IsVegetarian)
                 {
@@ -113,8 +112,12 @@ namespace LAB09
             {
                 return false;
             }
-
-            return Math.Abs(c1.CalculateDiscountedCost() - c2.CalculateDiscountedCost()) < 0.0001;
+            if (c1.CalculateDiscountedCost() == c2.CalculateDiscountedCost()) 
+            { 
+                return true;
+            }
+            else
+                return false;
         }
 
         public static bool operator !=(Cart c1, Cart c2)
